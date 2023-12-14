@@ -6,12 +6,12 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "categories")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "categories")
 public class Category {
 
     @Id

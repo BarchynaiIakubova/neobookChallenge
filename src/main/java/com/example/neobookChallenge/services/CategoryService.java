@@ -4,6 +4,9 @@ import com.example.neobookChallenge.models.Category;
 import com.example.neobookChallenge.repositories.CategoryRepository;
 import com.example.neobookChallenge.responses.CategoryResponse;
 import lombok.RequiredArgsConstructor;
+
+//import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +17,11 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public List<Category> findAll() {
+    @Value("${cloud.aws.bucket.path}")
+    private String path;
 
-        return categoryRepository.findAll();
+    public List<CategoryResponse> findAll() {
+
+        return categoryRepository.findAllCategories(path);
     }
 }

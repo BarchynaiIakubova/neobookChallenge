@@ -1,6 +1,6 @@
 package com.example.neobookChallenge.api;
 
-import com.example.neobookChallenge.models.Category;
+
 import com.example.neobookChallenge.responses.CategoryResponse;
 import com.example.neobookChallenge.services.CategoryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class CategoryApi {
     private final CategoryService categoryService;
 
     @GetMapping
-    List<Category> findAll() {
+    List<CategoryResponse> findAll() {
 
        return categoryService.findAll();
 
