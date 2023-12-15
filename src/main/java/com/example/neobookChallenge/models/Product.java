@@ -1,8 +1,10 @@
 package com.example.neobookChallenge.models;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
+@Builder
 @Table(name = "products")
 public class Product {
 
