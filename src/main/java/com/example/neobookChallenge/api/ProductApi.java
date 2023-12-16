@@ -1,11 +1,14 @@
 package com.example.neobookChallenge.api;
 
 import com.example.neobookChallenge.requests.ProductRequest;
+import com.example.neobookChallenge.responses.ProductGetAllResponse;
 import com.example.neobookChallenge.responses.Response;
 import com.example.neobookChallenge.services.ProductService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,5 +23,11 @@ public class ProductApi {
     Response save(@RequestBody ProductRequest productRequest) {
 
         return productService.save(productRequest);
+    }
+
+    @GetMapping
+    List<ProductGetAllResponse> findAll() {
+
+        return productService.findAll();
     }
 }

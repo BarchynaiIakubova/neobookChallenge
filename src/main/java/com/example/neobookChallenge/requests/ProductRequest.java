@@ -5,7 +5,7 @@ import com.example.neobookChallenge.models.Category;
 public record ProductRequest(
         Long id,
         String title,
-        String price,
+        Integer price,
         String description,
         String image,
         Category categoryId
