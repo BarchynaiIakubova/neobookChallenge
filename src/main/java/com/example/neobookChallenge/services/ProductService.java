@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +41,10 @@ public class ProductService {
     public List<ProductGetAllResponse> findAll() {
 
         return productRepository.findAllProducts(path);
+    }
+
+    public Optional<Product> findById(Long productId) {
+
+       return productRepository.findById(productId);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.neobookChallenge.api;
 
+import com.example.neobookChallenge.models.Product;
 import com.example.neobookChallenge.requests.ProductRequest;
 import com.example.neobookChallenge.responses.ProductGetAllResponse;
 import com.example.neobookChallenge.responses.Response;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,5 +31,18 @@ public class ProductApi {
     List<ProductGetAllResponse> findAll() {
 
         return productService.findAll();
+    }
+
+    @GetMapping("/{productId}")
+    Optional<Product> findById(@PathVariable Long productId) {
+
+        return productService.findById(productId);
+
+    }
+
+    @PutMapping("/{productId}")
+    Response update(@PathVariable Long productId, @RequestBody ProductRequest productRequest) {
+
+
     }
 }
