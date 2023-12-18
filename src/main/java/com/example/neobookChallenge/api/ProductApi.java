@@ -43,6 +43,7 @@ public class ProductApi {
     @PutMapping("/{productId}")
     Response update(@PathVariable Long productId, @RequestBody ProductRequest productRequest) {
 
+        return new Response("updated");
 
     }
 }

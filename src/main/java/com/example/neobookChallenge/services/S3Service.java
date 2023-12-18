@@ -1,13 +1,18 @@
 package com.example.neobookChallenge.services;
 
+import com.example.neobookChallenge.api.exceptions.BadRequestException;
 import com.example.neobookChallenge.responses.ImageResponse;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +20,9 @@ public class S3Service {
 
     @Value("${cloud.aws.bucket.name}")
     private String bucketName;
+
+    @Value("${cloud.aws.bucket.path}")
+    private String path;
 
     private final S3Client s3Client;
 
@@ -31,8 +39,29 @@ public class S3Service {
 
             s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-            return imageService
+            return new ImageResponse(path + key);
+        } catch (IOException | S3Exception e) {
+
+            e.printStackTrace();
+            throw new BadRequestException("Failed to load the image. Please try again later");
         }
-        return null;
+    }
+
+
+    public void deletePath(String fileLink) {
+        try{
+        s3Client.deleteObject(file ->file
+                .bucket(bucketName)
+                .key(fileLink)
+                .build());
+
+    } catch (S3Exception e) {
+
+        throw new IllegalStateException(e.awsErrorDetails().errorMessage());
+    } catch (Exception e) {
+
+        throw new IllegalStateException(e.getMessage());
+    }
+
     }
 }

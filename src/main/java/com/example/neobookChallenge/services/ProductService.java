@@ -19,7 +19,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     @Value("${cloud.aws.bucket.path}")
-    private final String path;
+    private String path;
 
     public Response save(ProductRequest productRequest) {
 

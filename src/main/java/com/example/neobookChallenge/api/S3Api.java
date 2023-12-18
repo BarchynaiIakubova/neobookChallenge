@@ -30,4 +30,9 @@ public class S3Api {
         return service.upload(file);
     }
 
+    @DeleteMapping
+    public void delete(@RequestParam String fileLink) {
+
+        service.deletePath(fileLink);
+    }
 }
