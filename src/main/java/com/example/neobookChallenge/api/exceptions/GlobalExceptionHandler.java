@@ -2,10 +2,12 @@ package com.example.neobookChallenge.api.exceptions;
 
 import com.example.neobookChallenge.responses.ExceptionResponse;
 import org.apache.coyote.BadRequestException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -14,6 +16,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
     public ExceptionResponse handleBadRequestException(com.example.neobookChallenge.api.exceptions.BadRequestException e) {
 
+        return new ExceptionResponse(
+                e.getClass().getSimpleName(),
+                e.getMessage()
+        );
+    }
+
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
+    public ExceptionResponse handlerNotFoundException(ChangeSetPersister.NotFoundException e) {
         return new ExceptionResponse(
                 e.getClass().getSimpleName(),
                 e.getMessage()

@@ -7,7 +7,9 @@ import com.example.neobookChallenge.responses.ProductGetAllResponse;
 import com.example.neobookChallenge.responses.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,8 +45,29 @@ public class ProductService {
         return productRepository.findAllProducts(path);
     }
 
-    public Optional<Product> findById(Long productId) {
+    public Product findById(Long productId) {
 
-       return productRepository.findById(productId);
+       return productRepository.findById(productId)
+               .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+    }
+
+
+    @Transactional
+    public Response update(Long productId, ProductRequest productRequest) {
+
+        Product product = findById(productId);
+
+        product.setTitle(productRequest.title());
+        product.setDescription(productRequest.description());
+        product.setPrice(productRequest.price());
+        product.setImage(productRequest.image());
+        product.setCategory(productRequest.categoryId());
+
+        return new Response("updated");
+    }
+
+    public Response delete(Long productId) {
+
+        return null;
     }
 }
