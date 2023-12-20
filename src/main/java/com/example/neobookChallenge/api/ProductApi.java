@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +33,7 @@ public class ProductApi {
     }
 
     @GetMapping("/{productId}")
-    Optional<Product> findById(@PathVariable Long productId) {
+    Product findById(@PathVariable Long productId) {
 
         return productService.findById(productId);
 
@@ -50,6 +49,6 @@ public class ProductApi {
     @DeleteMapping("/{productId}")
     Response delete(@PathVariable Long productId) {
 
-        return productService.delete(productId);
+        return productService.deleteByProductId(productId);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.neobookChallenge.services;
 
+import com.example.neobookChallenge.exceptions.NotFoundException;
 import com.example.neobookChallenge.models.Product;
 import com.example.neobookChallenge.repositories.ProductRepository;
 import com.example.neobookChallenge.requests.ProductRequest;
@@ -7,12 +8,10 @@ import com.example.neobookChallenge.responses.ProductGetAllResponse;
 import com.example.neobookChallenge.responses.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +47,7 @@ public class ProductService {
     public Product findById(Long productId) {
 
        return productRepository.findById(productId)
-               .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+               .orElseThrow(() -> new NotFoundException("The product is not found"));
     }
 
 
@@ -66,8 +65,10 @@ public class ProductService {
         return new Response("updated");
     }
 
-    public Response delete(Long productId) {
+    public Response deleteByProductId(Long productId) {
 
-        return null;
+        productRepository.deleteById(productId);
+
+        return new Response("Product Successfully removed");
     }
 }

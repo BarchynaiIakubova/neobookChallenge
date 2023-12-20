@@ -1,4 +1,4 @@
-package com.example.neobookChallenge.api.exceptions;
+package com.example.neobookChallenge.exceptions;
 
 public class BadRequestException extends RuntimeException{
 

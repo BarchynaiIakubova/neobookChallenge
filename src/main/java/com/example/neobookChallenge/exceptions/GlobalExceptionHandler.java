@@ -1,4 +1,4 @@
-package com.example.neobookChallenge.api.exceptions;
+package com.example.neobookChallenge.exceptions;
 
 import com.example.neobookChallenge.responses.ExceptionResponse;
 import org.apache.coyote.BadRequestException;
@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BadRequestException.class)
-    public ExceptionResponse handleBadRequestException(com.example.neobookChallenge.api.exceptions.BadRequestException e) {
+    public ExceptionResponse handleBadRequestException(com.example.neobookChallenge.exceptions.BadRequestException e) {
 
         return new ExceptionResponse(
                 e.getClass().getSimpleName(),
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
-    public ExceptionResponse handlerNotFoundException(ChangeSetPersister.NotFoundException e) {
+    public ExceptionResponse handlerNotFoundException(NotFoundException e) {
         return new ExceptionResponse(
                 e.getClass().getSimpleName(),
                 e.getMessage()

@@ -1,14 +1,16 @@
 package com.example.neobookChallenge.models;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Builder
+
 @Getter
 @Setter
+//@RequiredArgsConstructor
+//@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Table(name = "products")
 public class Product {
 
@@ -29,4 +31,6 @@ public class Product {
 
     @ManyToOne
     private Category category;
+
+    private Integer count;
 }
