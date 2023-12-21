@@ -25,7 +25,6 @@ public class ProductService {
     public Response save(ProductRequest productRequest) {
 
         Product product = Product.builder()
-                .id(productRequest.id())
                 .title(productRequest.title())
                 .price(productRequest.price())
                 .description(productRequest.description())
