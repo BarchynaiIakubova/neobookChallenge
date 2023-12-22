@@ -7,8 +7,8 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-//@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "orders")
 public class Order {
 
@@ -24,6 +24,8 @@ public class Order {
     private String landmark;
 
     private String comments;
+
+    private Integer orderNumber;
 
 
 

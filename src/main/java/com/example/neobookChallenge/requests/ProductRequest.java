@@ -7,5 +7,6 @@ public record ProductRequest(
         Integer price,
         String description,
         String image
+
 ){
 }

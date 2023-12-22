@@ -1,14 +1,14 @@
 package com.example.neobookChallenge.api;
 
 
+import com.example.neobookChallenge.requests.CategoryRequest;
 import com.example.neobookChallenge.responses.CategoryResponse;
+import com.example.neobookChallenge.responses.Response;
 import com.example.neobookChallenge.services.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ public class CategoryApi {
 
     private final CategoryService categoryService;
 
+    @Operation(summary = "Get All", description = "This method gets all categories")
     @GetMapping
     List<CategoryResponse> findAll() {
 
@@ -28,5 +29,22 @@ public class CategoryApi {
 
     }
 
+    @PostMapping
+    Response save(@RequestBody CategoryRequest categoryRequest) {
+
+        return categoryService.save(categoryRequest);
+    }
+
+    @GetMapping("/{categoryId}")
+    CategoryResponse findsById(@PathVariable Long categoryId) {
+
+        return categoryService.findsById(categoryId);
+    }
+
+    @PutMapping("/{categoryId}")
+    Response update(@PathVariable Long categoryId, CategoryRequest categoryRequest) {
+
+        return categoryService.update(categoryId, categoryRequest);
+    }
 
 }

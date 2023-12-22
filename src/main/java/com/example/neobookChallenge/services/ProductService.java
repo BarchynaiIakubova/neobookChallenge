@@ -29,8 +29,8 @@ public class ProductService {
                 .price(productRequest.price())
                 .description(productRequest.description())
                 .image(productRequest.image().substring(path.length()))
-                .category(productRequest.categoryId())
                 .build();
+        product.getCategory().getId();
 
         productRepository.save(product);
 
@@ -59,7 +59,7 @@ public class ProductService {
         product.setDescription(productRequest.description());
         product.setPrice(productRequest.price());
         product.setImage(productRequest.image());
-        product.setCategory(productRequest.categoryId());
+
 
         return new Response("updated");
     }

@@ -17,4 +17,13 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 """)
     List<CategoryResponse> findAllCategories(String path);
 
+
+    @Query("""
+                select new com.example.neobookChallenge.responses.CategoryResponse(
+                c.id,
+                c.title,
+                concat(:path, c.image))
+                from Category c where c.id = :categoryId
+""")
+    CategoryResponse findsById(String path, Long categoryId);
 }
