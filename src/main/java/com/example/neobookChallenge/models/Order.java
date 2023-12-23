@@ -25,7 +25,7 @@ public class Order {
 
     private String comments;
 
-    private Integer orderNumber;
+    private Long orderNumber;
 
 
 

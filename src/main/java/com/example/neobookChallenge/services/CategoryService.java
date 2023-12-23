@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+
+    private final S3Service s3Service;
 
     @Value("${cloud.aws.bucket.path}")
     private String path;
@@ -61,9 +64,24 @@ public class CategoryService {
 
         Category category = findByIdCategory(categoryId);
 
+        String oldImage = category.getImage();
+
         category.setTitle(categoryRequest.title());
 
-        category.setImage(categoryRequest.image());
+       String newImage = categoryRequest.image();
+
+//
+
+        if (newImage != null && !newImage.isEmpty()) {
+
+            s3Service.deletePath(path + oldImage);
+
+            String newImagePath = s3Service.upload(categoryRequest.image());
+
+            category.setImage(newImagePath);
+        }
+
+
 
         return new Response("Category successfully updated");
     }

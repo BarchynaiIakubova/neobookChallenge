@@ -4,7 +4,6 @@ public record OrderRequest(
         String phoneNumber,
         String address,
         String landmark,
-        String comments,
-        Integer orderNumber
+        String comments
 ) {
 }
