@@ -5,6 +5,7 @@ import com.example.neobookChallenge.requests.ProductRequest;
 import com.example.neobookChallenge.responses.ProductGetAllResponse;
 import com.example.neobookChallenge.responses.Response;
 import com.example.neobookChallenge.services.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,26 +21,29 @@ public class ProductApi {
 
     private final ProductService productService;
 
-    @PostMapping
-    Response save(@RequestBody ProductRequest productRequest) {
+    @PostMapping("/{categoryId}")
+    @Operation(summary = "Save Product", description = "This method saves product")
+    Response save(@PathVariable Long categoryId, @RequestBody ProductRequest productRequest) {
 
-        return productService.save(productRequest);
+        return productService.save(categoryId, productRequest);
     }
 
     @GetMapping
+    @Operation(summary = "Find All Products", description = "This method finds all products")
     List<ProductGetAllResponse> findAll() {
 
         return productService.findAll();
     }
 
     @GetMapping("/{productId}")
+    @Operation(summary = "Get by Id", description = "This method gets product by Id")
     Product findById(@PathVariable Long productId) {
 
         return productService.findById(productId);
-
     }
 
     @PutMapping("/{productId}")
+    @Operation(summary = "Update Product", description = "This method updates product by Id")
     Response update(@PathVariable Long productId, @RequestBody ProductRequest productRequest) {
 
         return productService.update(productId, productRequest);
@@ -47,6 +51,7 @@ public class ProductApi {
     }
 
     @DeleteMapping("/{productId}")
+    @Operation(summary = "Delete Product", description = "This method deletes product by Id")
     Response delete(@PathVariable Long productId) {
 
         return productService.deleteByProductId(productId);

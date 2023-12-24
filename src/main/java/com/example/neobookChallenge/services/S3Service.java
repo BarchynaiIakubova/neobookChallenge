@@ -44,7 +44,7 @@ public class S3Service {
 
             s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-            return new ImageResponse(path + key);
+            return new ImageResponse(path + key) ;
         } catch (IOException | S3Exception e) {
 
             e.printStackTrace();

@@ -2,6 +2,7 @@ package com.example.neobookChallenge.api;
 
 import com.example.neobookChallenge.requests.OrderRequest;
 import com.example.neobookChallenge.services.OrderService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ public class OrderApi {
     private final OrderService orderService;
 
     @PostMapping
+    @Operation(summary = "Order", description = "This method sends order")
     String save(@RequestBody OrderRequest orderRequest) {
 
         return orderService.save(orderRequest);

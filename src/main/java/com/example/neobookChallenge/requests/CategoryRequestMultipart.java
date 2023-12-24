@@ -2,8 +2,8 @@ package com.example.neobookChallenge.requests;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public record CategoryRequest(
+public record CategoryRequestMultipart(
         String title,
-        String image
+        MultipartFile image
 ) {
 }

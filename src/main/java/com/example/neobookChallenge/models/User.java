@@ -23,7 +23,7 @@ public class User {
 
     private String name;
 
-    List<Product> basket;
+//    List<Product> basket;
 
 
 }

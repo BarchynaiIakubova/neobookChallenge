@@ -4,7 +4,9 @@ import com.example.neobookChallenge.exceptions.NotFoundException;
 import com.example.neobookChallenge.models.Category;
 import com.example.neobookChallenge.repositories.CategoryRepository;
 import com.example.neobookChallenge.requests.CategoryRequest;
+import com.example.neobookChallenge.requests.CategoryRequestMultipart;
 import com.example.neobookChallenge.responses.CategoryResponse;
+import com.example.neobookChallenge.responses.ImageResponse;
 import com.example.neobookChallenge.responses.Response;
 import lombok.RequiredArgsConstructor;
 
@@ -66,25 +68,39 @@ public class CategoryService {
 
         String oldImage = category.getImage();
 
+        System.out.println("Old image " + oldImage);
+
         category.setTitle(categoryRequest.title());
+
+        System.out.println("Category Request" + categoryRequest.title());
 
        String newImage = categoryRequest.image();
 
-//
 
-        if (newImage != null && !newImage.isEmpty()) {
+        if (newImage != null && !newImage.isEmpty() && !newImage.equals(oldImage)) {
 
             s3Service.deletePath(path + oldImage);
 
-            String newImagePath = s3Service.upload(categoryRequest.image());
+            System.out.println("New page path " + newImage);
 
-            category.setImage(newImagePath);
         }
-
-
+        category.setImage(newImage.substring(path.length()));
 
         return new Response("Category successfully updated");
     }
 
 
+    public Response delete(Long categoryId) {
+
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new NotFoundException("The category is not found"));
+
+        String fileLink = category.getImage();
+
+        categoryRepository.deleteById(categoryId);
+
+        s3Service.deletePath(path + fileLink);
+
+        return new Response("The category was deleted ");
+    }
 }

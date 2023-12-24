@@ -1,7 +1,9 @@
 package com.example.neobookChallenge.services;
 
 import com.example.neobookChallenge.exceptions.NotFoundException;
+import com.example.neobookChallenge.models.Category;
 import com.example.neobookChallenge.models.Product;
+import com.example.neobookChallenge.repositories.CategoryRepository;
 import com.example.neobookChallenge.repositories.ProductRepository;
 import com.example.neobookChallenge.requests.ProductRequest;
 import com.example.neobookChallenge.responses.ProductGetAllResponse;
@@ -19,18 +21,21 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final CategoryService categoryService;
+
     @Value("${cloud.aws.bucket.path}")
     private String path;
 
-    public Response save(ProductRequest productRequest) {
+    public Response save(Long categoryId, ProductRequest productRequest) {
 
         Product product = Product.builder()
                 .title(productRequest.title())
                 .price(productRequest.price())
                 .description(productRequest.description())
                 .image(productRequest.image().substring(path.length()))
+                .category(categoryService.findByIdCategory(categoryId))
                 .build();
-        product.getCategory().getId();
+
 
         productRepository.save(product);
 
