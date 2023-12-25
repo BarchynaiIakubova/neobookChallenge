@@ -1,11 +1,12 @@
 package com.example.neobookChallenge.responses;
 
+import java.math.BigDecimal;
+
 public record ProductGetAllResponse(
 
         Long id,
         String title,
-        Integer price,
-        String currencyAndInfo,
+        BigDecimal price,
         String image
 ) {
 }

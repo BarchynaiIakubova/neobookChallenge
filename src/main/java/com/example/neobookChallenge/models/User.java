@@ -1,10 +1,7 @@
 package com.example.neobookChallenge.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -23,7 +20,18 @@ public class User {
 
     private String name;
 
-//    List<Product> basket;
+    @OneToOne
+    private Basket basket;
+
+    @ManyToMany
+    private List<Product> productList;
+
+    public User(String name) {
+        this.name = name;
+    }
+
+
+    //    List<Product> basket;
 
 
 }

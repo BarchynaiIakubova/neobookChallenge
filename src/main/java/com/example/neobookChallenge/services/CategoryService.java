@@ -4,9 +4,7 @@ import com.example.neobookChallenge.exceptions.NotFoundException;
 import com.example.neobookChallenge.models.Category;
 import com.example.neobookChallenge.repositories.CategoryRepository;
 import com.example.neobookChallenge.requests.CategoryRequest;
-import com.example.neobookChallenge.requests.CategoryRequestMultipart;
 import com.example.neobookChallenge.responses.CategoryResponse;
-import com.example.neobookChallenge.responses.ImageResponse;
 import com.example.neobookChallenge.responses.Response;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

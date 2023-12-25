@@ -23,6 +23,8 @@ public class ProductService {
 
     private final CategoryService categoryService;
 
+    private final S3Service s3Service;
+
     @Value("${cloud.aws.bucket.path}")
     private String path;
 
@@ -48,23 +50,31 @@ public class ProductService {
         return productRepository.findAllProducts(path);
     }
 
-    public Product findById(Long productId) {
+    public ProductGetAllResponse findByIdProduct(Long productId) {
 
-       return productRepository.findById(productId)
-               .orElseThrow(() -> new NotFoundException("The product is not found"));
+       return productRepository.findByIdProduct(path, productId);
     }
 
 
     @Transactional
     public Response update(Long productId, ProductRequest productRequest) {
 
-        Product product = findById(productId);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException("Product is not found"));
+
+        String oldImageLink = product.getImage();
 
         product.setTitle(productRequest.title());
         product.setDescription(productRequest.description());
         product.setPrice(productRequest.price());
-        product.setImage(productRequest.image());
 
+        String newImageLink = productRequest.image();
+
+        if (newImageLink != null && !newImageLink.isEmpty() && !newImageLink.equals(oldImageLink)) {
+
+            s3Service.deletePath(oldImageLink);}
+
+            product.setImage(newImageLink);
 
         return new Response("updated");
     }
@@ -73,6 +83,7 @@ public class ProductService {
 
         productRepository.deleteById(productId);
 
-        return new Response("Product Successfully removed");
+        return new Response("Product was Successfully removed");
     }
+
 }

@@ -3,6 +3,9 @@ package com.example.neobookChallenge.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,13 +24,18 @@ public class Product {
 
     private String description;
 
-    private Integer price;
-
-    private String currencyAndInfo;
+    private BigDecimal price;
 
     private String image;
 
     @ManyToOne
     private Category category;
+
+    @ManyToOne
+    private Basket basket;
+
+    @ManyToMany(mappedBy = "productList")
+    private List<User> users;
+
 
 }

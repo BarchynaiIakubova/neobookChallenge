@@ -2,7 +2,6 @@ package com.example.neobookChallenge.api;
 
 
 import com.example.neobookChallenge.requests.CategoryRequest;
-import com.example.neobookChallenge.requests.CategoryRequestMultipart;
 import com.example.neobookChallenge.responses.CategoryResponse;
 import com.example.neobookChallenge.responses.Response;
 import com.example.neobookChallenge.services.CategoryService;

@@ -37,9 +37,9 @@ public class ProductApi {
 
     @GetMapping("/{productId}")
     @Operation(summary = "Get by Id", description = "This method gets product by Id")
-    Product findById(@PathVariable Long productId) {
+    ProductGetAllResponse findById(@PathVariable Long productId) {
 
-        return productService.findById(productId);
+        return productService.findByIdProduct(productId);
     }
 
     @PutMapping("/{productId}")
@@ -56,4 +56,6 @@ public class ProductApi {
 
         return productService.deleteByProductId(productId);
     }
+
+
 }

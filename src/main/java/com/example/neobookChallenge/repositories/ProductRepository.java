@@ -14,9 +14,19 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             p.id,
             p.title,
             p.price,
-            p.currencyAndInfo,
             concat(:path, p.image)
             ) from Product p
             """)
     List<ProductGetAllResponse> findAllProducts(String path);
+
+
+    @Query("""
+            select new com.example.neobookChallenge.responses.ProductGetAllResponse(
+            p.id,
+            p.title,
+            p.price,
+            concat(:path, p.image)
+            ) from Product p where p.id = :productId
+""")
+    ProductGetAllResponse findByIdProduct(String path, Long productId);
 }
