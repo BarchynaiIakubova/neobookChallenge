@@ -58,4 +58,15 @@ public class ProductApi {
     }
 
 
+    @GetMapping("/pagination")
+    @Operation(summary = "Search product", description = "This method searches products")
+    List<ProductGetAllResponse> findAllProducts(
+            @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        return productService.findAllProducts(search, page, size);
+
+    }
+
 }

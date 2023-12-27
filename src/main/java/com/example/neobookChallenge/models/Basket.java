@@ -31,6 +31,9 @@ public class Basket {
 
     private BigDecimal totalPrice;
 
+    @OneToOne
+    private User user;
+
     @OneToMany(mappedBy = "basket")
     private List<Product> products;
 

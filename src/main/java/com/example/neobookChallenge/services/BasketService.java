@@ -8,6 +8,9 @@ import com.example.neobookChallenge.repositories.ProductRepository;
 import com.example.neobookChallenge.responses.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +20,8 @@ public class BasketService {
     private final BasketRepository basketRepository;
 
     private final ProductRepository productRepository;
+
+    private final UserService userService;
 
     public Response addProductToBasket(Long productId) {
 
@@ -28,6 +33,7 @@ public class BasketService {
                 .productPrice(product.getPrice())
                 .productImage(product.getImage())
                 .quantity(1)
+                .totalPrice(product.getPrice().multiply(BigDecimal.valueOf(1)))
                 .build();
 
         basketRepository.save(basket);
@@ -36,4 +42,20 @@ public class BasketService {
     }
 
 
+//    @Transactional
+//    public Response addQuantityOfProductInBasket(Long basketId) {
+//
+//        Basket basket = basketRepository.findById(basketId)
+//                .orElseThrow(() -> new NotFoundException("Product is not found"));
+//
+//
+//
+//        Integer newQuantity = basket.getQuantity();
+//
+//        basket.setQuantity(newQuantity + 1);
+//
+//        basket.setTotalPrice(basket.getQuantity());
+//
+//        return new Response("The quantity of the product changed");
+//    }
 }

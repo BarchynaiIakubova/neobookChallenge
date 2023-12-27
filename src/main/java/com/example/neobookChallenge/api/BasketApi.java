@@ -21,8 +21,12 @@ public class BasketApi {
         return basketService.addProductToBasket(productId);
     }
 
-    @PutMapping()
-    Response
+//    @PutMapping("/{productId}")
+//    Response changeProductInBasket(@PathVariable Long basketId) {
+//
+//        return basketService.addQuantityOfProductInBasket(basketId);
+//
+//    }
 
 
 }

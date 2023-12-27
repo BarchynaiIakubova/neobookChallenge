@@ -10,6 +10,7 @@ import com.example.neobookChallenge.responses.ProductGetAllResponse;
 import com.example.neobookChallenge.responses.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,4 +87,10 @@ public class ProductService {
         return new Response("Product was Successfully removed");
     }
 
+    public List<ProductGetAllResponse> findAllProducts(String search, int page, int size) {
+
+        String searchName = (search != null) ? search.replaceAll("\\s+", " ").trim() : null;
+
+        return productRepository.findAllProductsSearch(path, searchName, PageRequest.of(page - 1, size));
+    }
 }
