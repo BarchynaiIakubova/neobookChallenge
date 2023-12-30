@@ -22,12 +22,20 @@ public class BasketApi {
         return basketService.addProductToBasket(userId, productId);
     }
 
-//    @PutMapping("/{productId}")
-//    Response changeProductInBasket(@PathVariable Long basketId) {
-//
-//        return basketService.addQuantityOfProductInBasket(basketId);
-//
-//    }
+    @PutMapping("/{userId}/{productId}")
+    Response deleteProductByOneInBasket(@PathVariable Long userId,
+                                   @PathVariable Long productId) {
+
+        return basketService.deleteProductByOneInBasket(userId, productId);
+
+    }
+
+    @DeleteMapping("/{userId}/{productId}")
+    Response deleteProductInBasket(@PathVariable Long userId,
+                                   @PathVariable Long productId) {
+
+        return basketService.deleteProductInBasket(userId, productId);
+    }
 
 
 }
