@@ -15,10 +15,11 @@ public class BasketApi {
 
     private final BasketService basketService;
 
-    @PostMapping("/{productId}")
-    Response addProductToBasket(@PathVariable Long productId) {
+    @PostMapping("/{userId}/{productId}")
+    Response addProductToBasket(@PathVariable Long userId,
+                                @PathVariable Long productId) {
 
-        return basketService.addProductToBasket(productId);
+        return basketService.addProductToBasket(userId, productId);
     }
 
 //    @PutMapping("/{productId}")

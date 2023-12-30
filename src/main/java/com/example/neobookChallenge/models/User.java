@@ -3,6 +3,7 @@ package com.example.neobookChallenge.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,18 +21,23 @@ public class User {
 
     private String name;
 
-    @OneToOne
-    private Basket basket;
-
     @ManyToMany
-    private List<Product> productList;
+    private List<Product> basket;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
 
     public User(String name) {
         this.name = name;
     }
 
+    public void addProductToBasket(Product product) {
 
-    //    List<Product> basket;
+        if (this.basket == null) {
 
-
+            this.basket = new ArrayList<>();
+        }
+        this.basket.add(product);
+    }
 }

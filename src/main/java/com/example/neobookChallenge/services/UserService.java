@@ -4,6 +4,7 @@ import com.example.neobookChallenge.models.User;
 import com.example.neobookChallenge.repositories.UserRepository;
 import com.example.neobookChallenge.requests.UserRequest;
 import com.example.neobookChallenge.responses.Response;
+import com.example.neobookChallenge.responses.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,34 +14,29 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public boolean userExists(String name) {
-        return userRepository.findByName(name) != null;
-    }
+//    public boolean userExists(String name) {
+//        return userRepository.findByName(name) != null;
+//    }
 
-    public Response registerUser(String userName) {
+    public UserResponse registerUser(String userName) {
 
-        if (!userExists(userName)) {
+//        if (!userExists(userName)) {
 
-            User newUser = new User(userName);
+            User newUser = userRepository.save(new User(userName));
 
-            System.out.println("new user is " + newUser.getName());
-
-            userRepository.save(newUser);
-
-            return new Response("The user registered") ;
-        }
-        else return new Response("The user with this name already exists try another name");
+            return new UserResponse(newUser.getId(), newUser.getName());
+//        }
 
     }
 
-    public Response login(String userName) {
-
-        if (userExists(userName))
-
-            return new Response("Login successful");
-
-        else return new Response("Invalid username");
-    }
+//    public Response login(String userName) {
+//
+//        if (userExists(userName))
+//
+//            return new Response("Login successful");
+//
+//        else return new Response("Invalid username");
+//    }
 
 
 }

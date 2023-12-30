@@ -13,8 +13,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "baskets")
-public class Basket {
+@Table(name = "oders_products")
+public class OrderProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bas_seq")
@@ -29,13 +29,9 @@ public class Basket {
 
     private Integer quantity;
 
-    private BigDecimal totalPrice;
 
-    @OneToOne
-    private User user;
-
-    @OneToMany(mappedBy = "basket")
-    private List<Product> products;
+    @ManyToOne
+    private Order order;
 
 
 

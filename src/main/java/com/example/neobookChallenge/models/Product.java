@@ -30,12 +30,9 @@ public class Product {
 
     @ManyToOne
     private Category category;
-
-    @ManyToOne
-    private Basket basket;
-
-    @ManyToMany(mappedBy = "productList")
-    private List<User> users;
+//
+//    @ManyToMany(mappedBy = "productList")
+//    private List<User> users;
 
 
 }

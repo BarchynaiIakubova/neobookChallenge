@@ -3,6 +3,8 @@ package com.example.neobookChallenge.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -27,7 +29,11 @@ public class Order {
 
     private Long orderNumber;
 
+    @ManyToOne
+    private User user;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderProduct> orderProduct;
 
 
 }
