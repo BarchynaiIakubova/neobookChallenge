@@ -29,6 +29,7 @@ public class BasketService {
 
         user.addProductToBasket(product);
 
+//        product.getPrice() * ;
         return new Response("The product added to the basket");
     }
 

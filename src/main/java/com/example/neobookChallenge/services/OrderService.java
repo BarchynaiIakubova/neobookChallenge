@@ -6,9 +6,8 @@ import com.example.neobookChallenge.requests.OrderRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 @Service
@@ -24,8 +23,6 @@ public class OrderService {
 
         Long generatedNumber;
         List<Order> orders = orderRepository.findAll();
-
-
 
         do {
             generatedNumber = random.nextLong(100000000, 999999999);
@@ -54,6 +51,7 @@ public class OrderService {
                 .landmark(orderRequest.landmark())
                 .comments(orderRequest.comments())
                 .orderNumber(orderNumber)
+                .localDateTime(LocalDateTime.now())
                 .build();
 
         orderRepository.save(order);

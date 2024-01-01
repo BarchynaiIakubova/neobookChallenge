@@ -3,6 +3,7 @@ package com.example.neobookChallenge.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,8 @@ public class Order {
     private String comments;
 
     private Long orderNumber;
+
+    private LocalDateTime localDateTime;
 
     @ManyToOne
     private User user;
