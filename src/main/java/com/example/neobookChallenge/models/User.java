@@ -3,6 +3,7 @@ package com.example.neobookChallenge.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(sequenceName = "user_gen", name = "user_seq")
+    @SequenceGenerator(sequenceName = "user_gen", name = "user_seq", allocationSize = 1)
     private Long id;
 
     private String name;
@@ -40,6 +41,8 @@ public class User {
         }
         this.basket.add(product);
     }
+
+
 
 
 }

@@ -5,8 +5,10 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
+@EqualsAndHashCode
 @Getter
 @Setter
 @Builder
@@ -30,9 +32,19 @@ public class Product {
 
     @ManyToOne
     private Category category;
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Product product = (Product) o;
+//        return Objects.equals(id, product.id); // Assuming id is a unique identifier for products
+//    }
 //
-//    @ManyToMany(mappedBy = "productList")
-//    private List<User> users;
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id);
+//    }
 
 
 }

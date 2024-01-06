@@ -1,10 +1,13 @@
 package com.example.neobookChallenge.api;
 
+import com.example.neobookChallenge.responses.BasketResponse;
 import com.example.neobookChallenge.responses.Response;
 import com.example.neobookChallenge.services.BasketService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,5 +40,10 @@ public class BasketApi {
         return basketService.deleteProductInBasket(userId, productId);
     }
 
+    @GetMapping("/{userId}")
+    BasketResponse findAllProductsInBasket(@PathVariable Long userId) {
+
+        return basketService.findAllProductsInBasket(userId);
+    }
 
 }
